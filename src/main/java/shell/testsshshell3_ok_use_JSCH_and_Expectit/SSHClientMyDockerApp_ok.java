@@ -1,4 +1,4 @@
-package shell.testsshshell3ok;/*
+package shell.testsshshell3_ok_use_JSCH_and_Expectit;/*
  * #%L
  * ExpectIt
  * %%
@@ -28,8 +28,6 @@ import net.sf.expectit.ExpectBuilder;
 import java.io.IOException;
 import java.util.Properties;
 
-import static net.sf.expectit.filter.Filters.removeColors;
-import static net.sf.expectit.filter.Filters.removeNonPrintable;
 import static net.sf.expectit.matcher.Matchers.contains;
 import static net.sf.expectit.matcher.Matchers.regexp;
 import static net.sf.expectit.matcher.Matchers.sequence;

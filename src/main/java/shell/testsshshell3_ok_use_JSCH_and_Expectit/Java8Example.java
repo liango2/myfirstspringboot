@@ -1,4 +1,4 @@
-package shell.testsshshell3ok;
+package shell.testsshshell3_ok_use_JSCH_and_Expectit;
 /*
  * #%L
  * ExpectIt

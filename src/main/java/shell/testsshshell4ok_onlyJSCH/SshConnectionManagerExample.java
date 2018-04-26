@@ -1,4 +1,4 @@
-package shell.testsshshell4ok;
+package shell.testsshshell4ok_onlyJSCH;
 
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelShell;
