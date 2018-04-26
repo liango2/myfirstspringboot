@@ -52,7 +52,48 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.40</version>
 		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>1.10.19</version>
+			<scope>test</scope>
+		</dependency>
 
+
+		<dependency>
+			<groupId>com.jcraft</groupId>
+			<artifactId>jsch</artifactId>
+			<version>0.1.51</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.github.cverges.expect4j/expect4j -->
+		<dependency>
+			<groupId>com.github.cverges.expect4j</groupId>
+			<artifactId>expect4j</artifactId>
+			<version>1.6</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.expectit</groupId>
+			<artifactId>expectit-core</artifactId>
+			<version>0.9.0</version>
+		</dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>4.3.11.RELEASE</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.docker-java</groupId>
+			<artifactId>docker-java</artifactId>
+			<version>3.1.0-rc-2</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>
