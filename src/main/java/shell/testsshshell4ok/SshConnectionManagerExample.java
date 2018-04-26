@@ -1,10 +1,9 @@
-package shell.testsshshell4;
+package shell.testsshshell4ok;
 
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelShell;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
-import expect4j.ExpectEmulation;
 
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -116,10 +115,11 @@ private static void readChannelOutput(Channel channel){
                     break;
                 }
                 line = new String(buffer, 0, i);
-                System.out.println("line = " + line);
+                System.out.println("读行：" + line);
             }
 
-            if(line.contains("logout")){
+            /** 如果发现有字符串 mylogout, 就退出*/
+            if(line.contains("mylogout")){
                 break;
             }
 
@@ -149,7 +149,7 @@ public static void main(String[] args){
     commands.add("docker images");
     commands.add("docker run -it ubuntu-emacs-man /bin/bash");
     commands.add("ls");         //执行时间太长打印不出来
-
+    commands.add("echo \"mylogout\"");         //执行时间太长打印不出来
     executeCommands(commands);
 
     close();

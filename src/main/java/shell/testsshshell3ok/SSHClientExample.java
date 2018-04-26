@@ -1,4 +1,4 @@
-package shell.testsshshell3;/*
+package shell.testsshshell3ok;/*
  * #%L
  * ExpectIt
  * %%
@@ -33,16 +33,14 @@ import static net.sf.expectit.filter.Filters.removeColors;
 import static net.sf.expectit.filter.Filters.removeNonPrintable;
 import static net.sf.expectit.matcher.Matchers.contains;
 import static net.sf.expectit.matcher.Matchers.regexp;
-import static net.sf.expectit.matcher.Matchers.sequence;
 
 /**
  * An example of interacting with SSH server
  */
-public class SSHClientMyDockerApp {
+public class SSHClientExample {
     public static void main(String[] args) throws JSchException, IOException {
         JSch jSch = new JSch();
-        Session session = jSch.getSession("docker", "192.168.99.100");
-        session.setPassword("tcuser");
+        Session session = jSch.getSession("new", "sdf.org");
         Properties config = new Properties();
         config.put("StrictHostKeyChecking", "no");
         session.setConfig(config);
@@ -50,57 +48,50 @@ public class SSHClientMyDockerApp {
         Channel channel = session.openChannel("shell");
         channel.connect();
 
-        Expect expect = new ExpectBuilder()
-                .withOutput(channel.getOutputStream())
-                .withInputs(channel.getInputStream(), channel.getExtInputStream())
-                .withEchoInput(System.out)
-                .withEchoOutput(System.err)
-                .withInputFilters(removeColors(), removeNonPrintable())
-                .withExceptionOnFailure()
-                .build();
-
 //        Expect expect = new ExpectBuilder()
 //                .withOutput(channel.getOutputStream())
 //                .withInputs(channel.getInputStream(), channel.getExtInputStream())
-//                .withEchoInput(new PrintStream(System.out) {
-//                    @Override
-//                    public PrintStream append(final CharSequence csq) {
-//                        System.out.println("线程名=’" + Thread.currentThread().getName() + "‘，" +
-//                                "CharSequence=’" + csq + "'");
-//                        return this;
-//                    }
-//                })
+//                .withEchoInput(System.out)
 //                .withEchoOutput(System.err)
 //                .withInputFilters(removeColors(), removeNonPrintable())
 //                .withExceptionOnFailure()
 //                .build();
 
+        Expect expect = new ExpectBuilder()
+                .withOutput(channel.getOutputStream())
+                .withInputs(channel.getInputStream(), channel.getExtInputStream())
+                .withEchoInput(new PrintStream(System.out) {
+                    @Override
+                    public PrintStream append(final CharSequence csq) {
+                        System.out.println("线程名=’" + Thread.currentThread().getName() + "‘，" +
+                                "CharSequence=’" + csq + "'");
+                        return this;
+                    }
+                })
+                .withEchoOutput(System.err)
+                .withInputFilters(removeColors(), removeNonPrintable())
+                .withExceptionOnFailure()
+                .build();
+
         try {
-            expect.expect(sequence(contains("@"), contains(":")));
-            expect.sendLine("pwd");
-            expect.expect(sequence(contains("@"), contains(":")));
-            expect.sendLine("docker ps");
+            expect.expect(contains("[RETURN]"));
+            expect.sendLine();
 
-            expect.expect(contains("@"));
-            expect.sendLine("docker run -it  ubuntu-emacs-man /bin/bash");
+            String ipAddress = expect.expect(regexp("Trying (.*)\\.\\.\\.")).group(1);
+            System.out.println("Captured IP: " + ipAddress);
 
-            expect.expect(sequence(contains("@")));
-            expect.sendLine("pwd");
-            try {
-                Thread.sleep(4000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            expect.expect(sequence(contains("@")));
-            expect.sendLine("cat /etc/passwd");
+            expect.expect(contains("login:"));
+            expect.sendLine("new");
 
-            try {
-                Thread.sleep(4000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-//            expect.expect(4000, sequence(contains("@")));   //not work
-            expect.expect(sequence(contains("@")));   //not work
+//            expect.expect(contains("(Y/N)"));
+//            expect.send("N");
+            expect.expect(regexp(": $"));
+            expect.send("\b");
+//            expect.expect(regexp("\\(y\\/n\\)"));
+//            expect.sendLine("y");
+//            expect.expect(contains("Would you like to sign the guestbook?"));
+//            expect.send("n");
+            expect.expect(contains("[RETURN]"));
             expect.sendLine();
         } finally {
             expect.close();

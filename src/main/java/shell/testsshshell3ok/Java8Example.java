@@ -1,4 +1,4 @@
-package shell.testsshshell3;
+package shell.testsshshell3ok;
 /*
  * #%L
  * ExpectIt
