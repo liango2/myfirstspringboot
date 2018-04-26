@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+
 public class SshConnectionManagerExample {
 
 private static Session session;
@@ -115,7 +116,7 @@ private static void readChannelOutput(Channel channel){
                     break;
                 }
                 line = new String(buffer, 0, i);
-                System.out.println("读行：" + line);
+                System.out.println("打印控制台响应：" + line);
             }
 
             /** 如果发现有字符串 mylogout, 就退出*/
@@ -155,3 +156,6 @@ public static void main(String[] args){
     close();
 }
 }
+
+// 参考了 ：https://stackoverflow.com/questions/16298279/never-ending-of-reading-server-response-using-jsch
+//	java - Never ending of reading server response using jSch - Stack Overflow 
